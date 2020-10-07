@@ -46,11 +46,14 @@ City.prototype.render= function () {
   var tdElement= document.createElement('td');
   tdElement.textContent = this.name;
   tr2Element.appendChild(tdElement);
-  for (var i=0; i<openHours.length; i++){
+  for (var i=0; i<openHours.length -2; i++){
     var td2Element= document.createElement('td');
     td2Element.textContent = this.cookiesPerHour[i];
     tr2Element.appendChild(td2Element);
   }
+  var tdTotalElement = document.createElement('td');
+  tdTotalElement.textContent = this.totalSales;
+  tr2Element.appendChild(tdTotalElement);
 };
 
 function footerOfTable(){
