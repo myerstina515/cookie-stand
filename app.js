@@ -4,7 +4,7 @@ var openHours = ['', '6am:', '7am:', '8am:', '9am:', '10am:', '11am:', '12pm:', 
 var parentElement = document.getElementById('thead');
 var parentElement2 = document.getElementById('tbody');
 var parentElement3 = document.getElementById('tfoot');
-City.overallTotal = [];
+var overallTotal = [];
 function City(name, min, max, cookiesPerCustomer){
   this.name = name;
   this.min = min;
@@ -12,7 +12,7 @@ function City(name, min, max, cookiesPerCustomer){
   this.cookiesPerCustomer = cookiesPerCustomer;
   this.totalSales = 0;
   this.cookiesPerHour = [];
-  City.overallTotal.push(this);
+  overallTotal.push(this);
 }
 City.prototype.perHour= function () {
   var customers = Math.floor(Math.random() * (this.max-this.min + 1) + this.min);
@@ -79,10 +79,14 @@ new City('Paris', 20, 38, 2.3);
 
 new City('Lima', 2, 16, 4.6);
 
-// console.log(City.overallTotal);
+// console.log(overallTotal);
 
 headerOfTable();
 
 for (var i=0; i<openHours.length; i++){
-  City.overallTotal[i].render();
+  var cityFinal = overallTotal[i];
+  //   console.log(cityFinal);
+  if (cityFinal){
+    cityFinal.render();
+  }
 }
