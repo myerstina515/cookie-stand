@@ -4,7 +4,8 @@ var openHours = ['', '6am:', '7am:', '8am:', '9am:', '10am:', '11am:', '12pm:', 
 var parentElement = document.getElementById('thead');
 var parentElement2 = document.getElementById('tbody');
 var parentElement3 = document.getElementById('tfoot');
-var overallTotal = [];
+var allCitiesArray = [];
+
 function City(name, min, max, cookiesPerCustomer){
   this.name = name;
   this.min = min;
@@ -12,7 +13,7 @@ function City(name, min, max, cookiesPerCustomer){
   this.cookiesPerCustomer = cookiesPerCustomer;
   this.totalSales = 0;
   this.cookiesPerHour = [];
-  overallTotal.push(this);
+  allCitiesArray.push(this);
 }
 City.prototype.perHour= function () {
   var customers = Math.floor(Math.random() * (this.max-this.min + 1) + this.min);
@@ -46,7 +47,7 @@ City.prototype.render= function () {
   var tdElement= document.createElement('td');
   tdElement.textContent = this.name;
   tr2Element.appendChild(tdElement);
-  for (var i=0; i<openHours.length -2; i++){
+  for (var i=0; i<openHours.length - 2; i++){
     var td2Element= document.createElement('td');
     td2Element.textContent = this.cookiesPerHour[i];
     tr2Element.appendChild(td2Element);
@@ -60,14 +61,29 @@ function footerOfTable(){
   var trFooter= document.createElement('tr');
   trFooter.textContent = 'Total';
   parentElement3.appendChild(trFooter);
-// //   for (i=0; i<this.name.length; i++){
-//     for (j=1; j<openHours.length; i++){
-//        var tdElement = document.createElement('td');
-//        tdElement.textContent =
-//     }
-// //   }
+  // var finalTotalPerHour = [
+  //   // I need an array for the city rows
+  //   [openHours],
+  //   [allCitiesArray]
+  // ];
+  var totalOfTotals = 0;
+  for (var j=0; j < openHours.length - 2; j++){
+    var eachHourTotal = 0;
+    // console.log('This is openHours[j]' + openHours[j]);
+    for (var k=0; k < allCitiesArray.length; k++){
+      //     // console.log('this is allCitiesArray[k]' + allCitiesArray[k]);
+      //     // console.log('this is k' [k]);
+      eachHourTotal += allCitiesArray[k].cookiesPerHour[j];
+    }
+    totalOfTotals += eachHourTotal;
+    var td3Values = document.createElement('td');
+    td3Values.textContent = eachHourTotal;
+    trFooter.appendChild(td3Values);
+  }
+  var td4Value = document.createElement('td');
+  td4Value.textContent = totalOfTotals;
+  trFooter.appendChild(td4Value);
 }
-footerOfTable();
 
 
 
@@ -82,14 +98,15 @@ new City('Paris', 20, 38, 2.3);
 
 new City('Lima', 2, 16, 4.6);
 
-// console.log(overallTotal);
+// console.log(allCitiesArray);
 
 headerOfTable();
 
-for (var i=0; i<openHours.length; i++){
-  var cityFinal = overallTotal[i];
-  //   console.log(cityFinal);
-  if (cityFinal){
-    cityFinal.render();
-  }
+for (var i=0; i<allCitiesArray.length; i++){
+  allCitiesArray[i].render();
 }
+footerOfTable();
+
+
+
+
