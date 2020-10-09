@@ -15,16 +15,41 @@ function City(name, min, max, cookiesPerCustomer){
   this.cookiesPerHour = [];
   allCitiesArray.push(this);
 }
+
+var formEl = document.getElementById('form');
+
+function handleSubmit(event){
+  event.preventDefault();
+
+  var newLocationName = event.target.locationName.value;
+  var minPeople = parseInt(event.target.minimumcustomers.value);
+  var maxPeople = parseInt(event.target.maximumcustomers.value);
+  var avgCookies = parseInt(event.target.avgCookiesPerCustomer.value);
+
+  new City(newLocationName, minPeople, maxPeople, avgCookies);
+  console.log(allCitiesArray);
+
+  var retrieveTableHead = document.getElementById('thead');
+  var retrieveTable = document.getElementById('tbody');
+  var retrieveTable2 = document.getElementById('tfoot');
+  retrieveTable.innerHTML = '';
+  retrieveTable2.innerHTML = '';
+  retrieveTableHead.innerHTML = '';
+  generateTable();
+}
+
+
+formEl.addEventListener('submit', handleSubmit);
+
 City.prototype.perHour= function () {
   var customers = Math.floor(Math.random() * (this.max-this.min + 1) + this.min);
-  //   return Math.ceil(customers * this.cookiesPerCustomer);
   this.cookiesPerHour.push(Math.ceil(customers * this.cookiesPerCustomer));
 };
 City.prototype.dailySales= function (){
 
   for (var i=0; i<openHours.length; i++){
-    var cookiesThisHour = this.perHour();
-    console.log(cookiesThisHour);
+    this.perHour();
+    // console.log(cookiesThisHour);
     this.totalSales += this.cookiesPerHour[i];
   }
 };
@@ -56,6 +81,7 @@ City.prototype.render= function () {
   tdTotalElement.textContent = this.totalSales;
   tr2Element.appendChild(tdTotalElement);
 };
+
 
 function footerOfTable(){
   var trFooter= document.createElement('tr');
@@ -100,13 +126,16 @@ new City('Lima', 2, 16, 4.6);
 
 // console.log(allCitiesArray);
 
-headerOfTable();
+function generateTable(){
+  headerOfTable();
 
-for (var i=0; i<allCitiesArray.length; i++){
-  allCitiesArray[i].render();
+  for (var i=0; i<allCitiesArray.length; i++){
+    allCitiesArray[i].render();
+  }
+  footerOfTable();
 }
-footerOfTable();
+// parentElement3.innerHTML='';
+// footerOfTable();
 
-
-
+generateTable();
 
