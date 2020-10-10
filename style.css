@@ -11,6 +11,8 @@
 h2{
     font-size: 45px;
     text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: navy;
 }
 
 h4{
@@ -21,6 +23,8 @@ h4{
 h5{
     font-size: 30px;
     margin: 5px;
+    font-family: 'Handlee', cursive;
+    color: rgb(4, 54, 4);
 }
 
 img{
